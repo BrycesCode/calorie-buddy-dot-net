@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BMRCaloriesAndMeals.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BMRCaloriesAndMeals.Controllers
 {
@@ -14,18 +15,19 @@ namespace BMRCaloriesAndMeals.Controllers
         /// </returns>
 
         [HttpGet("/findBMR")]
-        public ActionResult<string> ReturnBMR(string gender, double weight, int height, int age)
+        public ActionResult<string> ReturnBMR(BMRModel UserBMRModel)
         {
             double BMR;
 
-            if (gender.ToLower() == "male")
+            
+            if (UserBMRModel.Gender.ToLower() == "male")
             {
-                BMR = 10 * weight + 6.25 * height - 5 * age + 5;
+                BMR = 10 * UserBMRModel.Weight + 6.25 * UserBMRModel.Height - 5 * UserBMRModel.Age + 5;
                 return Ok(BMR.ToString());
             }
-            else if(gender.ToLower() == "female")
+            else if(UserBMRModel.Gender.ToLower() == "female")
             {
-                BMR = 10 * weight + 6.25 * height - 5 * age - 161;
+                BMR = 10 * UserBMRModel.Weight + 6.25 * UserBMRModel.Height - 5 * UserBMRModel.Age - 161;
                 return Ok(BMR.ToString());
             }
             else
