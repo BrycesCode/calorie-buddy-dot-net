@@ -15,19 +15,19 @@ namespace BMRCaloriesAndMeals.Controllers
         /// </returns>
 
         [HttpGet("/findBMR")]
-        public ActionResult<string> ReturnBMR(BMRModel UserBMRModel)
+        public ActionResult<string> ReturnBMR(BMRModel userBMRModel)
         {
             double BMR;
 
             
-            if (UserBMRModel.Gender.ToLower() == "male")
+            if (userBMRModel.Gender.ToLower() == "male")
             {
-                BMR = 10 * UserBMRModel.Weight + 6.25 * UserBMRModel.Height - 5 * UserBMRModel.Age + 5;
+                BMR = 10 * userBMRModel.Weight + 6.25 * userBMRModel.Height - 5 * userBMRModel.Age + 5;
                 return Ok(BMR.ToString());
             }
-            else if(UserBMRModel.Gender.ToLower() == "female")
+            else if(userBMRModel.Gender.ToLower() == "female")
             {
-                BMR = 10 * UserBMRModel.Weight + 6.25 * UserBMRModel.Height - 5 * UserBMRModel.Age - 161;
+                BMR = 10 * userBMRModel.Weight + 6.25 * userBMRModel.Age - 161;
                 return Ok(BMR.ToString());
             }
             else
