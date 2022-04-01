@@ -1,10 +1,18 @@
-﻿using BMRCaloriesAndMeals.Models;
+﻿using BMRCaloriesAndMeals.Interfaces.BMR;
+using BMRCaloriesAndMeals.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BMRCaloriesAndMeals.Controllers
 {
     public class BMRCalorieController : Controller
     {
+        private readonly IBMRServices _bmrServices;
+
+        public BMRCalorieController(IBMRServices bmrServices)
+        {
+            _bmrServices = bmrServices;
+        }
+
         /// <summary>
         /// The endpoint below calculates the BMR (kcal/day) for user based on the Miffin-St Jeor equation
         /// </summary>
@@ -17,22 +25,15 @@ namespace BMRCaloriesAndMeals.Controllers
         [HttpGet("/findBMR")]
         public ActionResult<string> ReturnBMR(BMRModel userBMRModel)
         {
-            double BMR;
+            var bmr = _bmrServices.CalculateBMR(userBMRModel);
 
-            
-            if (userBMRModel.Gender.ToLower() == "male")
+            if (bmr == 0)
             {
-                BMR = 10 * userBMRModel.Weight + 6.25 * userBMRModel.Height - 5 * userBMRModel.Age + 5;
-                return Ok(BMR.ToString());
-            }
-            else if(userBMRModel.Gender.ToLower() == "female")
-            {
-                BMR = 10 * userBMRModel.Weight + 6.25 * userBMRModel.Age - 161;
-                return Ok(BMR.ToString());
+                return Ok("Please enter male/female for gender");
             }
             else
             {
-                return Ok("Please enter female or male");
+                return Ok(bmr);
             }
         }
     }
