@@ -1,5 +1,7 @@
 ﻿using BMRCaloriesAndMeals.Interfaces.BMR;
+using BMRCaloriesAndMeals.Interfaces.RecomendedCalories;
 using BMRCaloriesAndMeals.Models;
+using BMRCaloriesAndMeals.Models.CalorieModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BMRCaloriesAndMeals.Controllers
@@ -7,10 +9,12 @@ namespace BMRCaloriesAndMeals.Controllers
     public class BMRCalorieController : Controller
     {
         private readonly IBMRServices _bmrServices;
+        private readonly ICalorieServices _calorieServicers;
 
-        public BMRCalorieController(IBMRServices bmrServices)
+        public BMRCalorieController(IBMRServices bmrServices, ICalorieServices calorieServices)
         {
             _bmrServices = bmrServices;
+            _calorieServicers = calorieServices;
         }
 
         /// <summary>
@@ -35,6 +39,16 @@ namespace BMRCaloriesAndMeals.Controllers
             {
                 return Ok(bmr);
             }
+        }
+
+        /// <summary>
+        /// returns calories needed daily based on weight goal (gain, lose, maintain)
+        /// </summary>
+        [HttpPost("/CaloriesNeededDaily")]
+        public ActionResult<double> returnCaloriesNeededDaily([FromBody]ActiviyLevelModel activityLevel, double BMR)
+        {
+            var caloriesNeededDaily = _calorieServicers.CalculateCaloriesNeededDaily(activityLevel, BMR);
+            return Ok(caloriesNeededDaily);
         }
     }
 }
