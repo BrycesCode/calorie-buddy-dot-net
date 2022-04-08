@@ -1,9 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BMRCaloriesAndMeals.Interfaces.BMR;
+using BMRCaloriesAndMeals.Interfaces.RecomendedCalories;
+using BMRCaloriesAndMeals.Models;
+using BMRCaloriesAndMeals.Models.CalorieModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BMRCaloriesAndMeals.Controllers
 {
     public class BMRCalorieController : Controller
     {
+        private readonly IBMRServices _bmrServices;
+        private readonly ICalorieServices _calorieServicers;
+
+        public BMRCalorieController(IBMRServices bmrServices, ICalorieServices calorieServices)
+        {
+            _bmrServices = bmrServices;
+            _calorieServicers = calorieServices;
+        }
+
         /// <summary>
         /// The endpoint below calculates the BMR (kcal/day) for user based on the Miffin-St Jeor equation
         /// </summary>
@@ -14,24 +27,28 @@ namespace BMRCaloriesAndMeals.Controllers
         /// </returns>
 
         [HttpGet("/findBMR")]
-        public ActionResult<string> ReturnBMR(string gender, double weight, int height, int age)
+        public ActionResult<string> ReturnBMR(BMRModel userBMRModel)
         {
-            double BMR;
+            var bmr = _bmrServices.CalculateBMR(userBMRModel);
 
-            if (gender.ToLower() == "male")
+            if (bmr == 0)
             {
-                BMR = 10 * weight + 6.25 * height - 5 * age + 5;
-                return Ok(BMR.ToString());
-            }
-            else if(gender.ToLower() == "female")
-            {
-                BMR = 10 * weight + 6.25 * height - 5 * age - 161;
-                return Ok(BMR.ToString());
+                return Ok("Please enter male/female for gender");
             }
             else
             {
-                return Ok("Please enter female or male");
+                return Ok(bmr);
             }
+        }
+
+        /// <summary>
+        /// returns calories needed daily based on weight goal (gain, lose, maintain)
+        /// </summary>
+        [HttpPost("/CaloriesNeededDaily")]
+        public ActionResult<double> returnCaloriesNeededDaily([FromBody]ActiviyLevelModel activityLevel, double BMR)
+        {
+            var caloriesNeededDaily = _calorieServicers.CalculateCaloriesNeededDaily(activityLevel, BMR);
+            return Ok(caloriesNeededDaily);
         }
     }
 }
