@@ -33,7 +33,7 @@ This API was created for my girlfriend's website, she is a personal trainer and 
             - Gain
             - Lose
             - Maintain
-        This will then return a calorie goal to the user that they should try to hit everyday. This will eventually return meals for the user to eat that match macros/calories per day.
+       This will then return a calorie goal to the user that they should try to hit everyday. This will eventually return meals for the user to eat that match macros/calories per day.
 # Used By
 
 This project is used by the following companies:
