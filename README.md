@@ -16,14 +16,14 @@ This API was created for my girlfriend's website, she is a personal trainer and 
 
 #### Current Endpoints
 - ### /findBMR
-    - This endpoint calculates BMR of user by taking in an object of a BMRModel which is just an object of:
+    - This endpoint calculates BMR of user by taking in an object of a BMRModel which is shown below. This will then calculate and return the users BMR, meant to be used for the endpoint of '/CaloriesNeededDaily'.
         - Age
         - Height (inches)
         - Weight (pounds)
         - Gender
         This will then calculate and return the users BMR, meant to be used for the endpoint of '/CaloriesNeededDaily'.
 - ### /CaloriesNeededDaily
-    - this endpoint calculates how many calories the user needs based on an object of activity level and BMR, the activity level object is as follows:
+    - this endpoint calculates how many calories the user needs based on an object of activity level and BMR, the activity level object is as follows below.         This will then return a calorie goal to the user that they should try to hit everyday. This will eventually return meals for the user to eat that match macros/calories per day.
         - Gender
         - Activity level
             - 1 = 1-2 days
@@ -33,7 +33,7 @@ This API was created for my girlfriend's website, she is a personal trainer and 
             - Gain
             - Lose
             - Maintain
-       This will then return a calorie goal to the user that they should try to hit everyday. This will eventually return meals for the user to eat that match macros/calories per day.
+
 # Used By
 
 This project is used by the following companies:
