@@ -25,7 +25,12 @@ This API was created for my girlfriend's website, she is a personal trainer and 
 - ### /CaloriesNeededDaily
     - this endpoint calculates how many calories the user needs based on an object of activity level and BMR, the activity level object is as follows below.         This will then return a calorie goal to the user that they should try to hit everyday. This will eventually return meals for the user to eat that match macros/calories per day.
         - Gender
-        - Activity level
+        - Activity Level
+            - 1 = Light Activity (cleaning, office work, golf, baseball)
+            - 2 = Moderate Activity (Gardening, cycling @ 5.5mph, dancing, basketball, walking briskly)
+            - 3 = Strenuous (jogging, football, swimming)
+            - 4 = Very Strenuous (skiing, running)
+        - Activity Frequency
             - 1 = 1-2 days
             - 2 = 2-4 days
             - 3 = 5-7 days
