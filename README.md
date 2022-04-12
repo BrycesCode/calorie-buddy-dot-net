@@ -3,7 +3,7 @@
 
 This API was created for my girlfriend's website, she is a personal trainer and wanted functionallity for her clients to be able to easily access meals or an estimated calorie count based on their gender, height, weight, and activity levels.
 
-## Roadmap
+### Roadmap
 - Return list of macro splits based on recommended calories/day
 - Create DB with custom meals and calorie counts for each macro.
 - Barcode scanning
@@ -39,7 +39,7 @@ This API was created for my girlfriend's website, she is a personal trainer and 
             - Lose
             - Maintain
 
-# Used By
+### Used By
 
 This project is used by the following companies:
 
@@ -53,7 +53,7 @@ This project is used by the following companies:
 
 
 
-## Support
+### Support
 
 For support, email bradystohler15@gmail.com
 
