@@ -16,7 +16,7 @@ This API was created for my girlfriend's website, she is a personal trainer and 
 
 #### Current Endpoints
 - ### /findBMR
-    - This endpoint calculates BMR of user by taking in an object of a BMRModel which is shown below. This will then calculate and return the users BMR, meant to be used for the endpoint of '/CaloriesNeededDaily'.
+    - This endpoint calculates BMR of user by taking in an object of a BMRModel which is shown below. This will then calculate and return the users BMR, meant to be used for the endpoint of `/CaloriesNeededDaily`.
         - Age
         - Height (inches)
         - Weight (pounds)
