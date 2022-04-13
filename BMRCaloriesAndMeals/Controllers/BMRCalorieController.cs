@@ -23,7 +23,7 @@ namespace BMRCaloriesAndMeals.Controllers
         /// </returns>
 
         [HttpGet("/findBMR")]
-        public ActionResult<string> ReturnBMR(BMRModel userBMRModel)
+        public ActionResult<string> ReturnBMR([FromBody]BMRModel userBMRModel)
         {
             var bmr = _bmrServices.CalculateBMR(userBMRModel);
 
@@ -35,6 +35,11 @@ namespace BMRCaloriesAndMeals.Controllers
             {
                 return Ok(bmr);
             }
+        }
+
+        public ActionResult<string> ReturnReccomendedCalories([FromBody]RecommendedCaloriesModel recommendedCalories)
+        {
+
         }
     }
 }
