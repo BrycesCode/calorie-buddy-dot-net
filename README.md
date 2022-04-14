@@ -1,6 +1,6 @@
 # Calorie Buddy
 ### Summary
-This API was create for a personal training company that wanted to add the functionality of easily accessing meals, estimating calorie counts, and finding BMR based on `gener, height, weight, activity level, goal, and activity frequency`. The client requested a database with high quality meals that would be prompted to users based on caloric needs according to the API.
+This API was created for a personal training company that wanted to add the functionality of easily accessing meals, estimating calorie counts, and finding BMR based on `gender, height, weight, activity level, goal, and activity frequency`. The client requested a database with high quality meals that would be prompted to users based on caloric needs according to the API.
 
 ### roadmap
 - Return list of macro splits based on recommended calories/day
