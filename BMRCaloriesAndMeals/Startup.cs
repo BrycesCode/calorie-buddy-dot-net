@@ -1,5 +1,7 @@
 using BMRCaloriesAndMeals.Interfaces.BMR;
+using BMRCaloriesAndMeals.Interfaces.Macros;
 using BMRCaloriesAndMeals.Interfaces.RecomendedCalories;
+using BMRCaloriesAndMeals.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +32,8 @@ namespace BMRCaloriesAndMeals
         {
             services.AddScoped<IBMRServices, BMRServices>();
             services.AddScoped<ICalorieServices, CalorieServices>();
+            services.AddScoped<IMacroSplit, MacroSplit>();
+            services.AddSingleton<IConfiguration>(Configuration);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

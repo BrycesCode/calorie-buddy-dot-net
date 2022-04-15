@@ -1,4 +1,5 @@
 ﻿using BMRCaloriesAndMeals.Interfaces.BMR;
+using BMRCaloriesAndMeals.Interfaces.Macros;
 using BMRCaloriesAndMeals.Interfaces.RecomendedCalories;
 using BMRCaloriesAndMeals.Models;
 using BMRCaloriesAndMeals.Models.CalorieModels;
@@ -10,11 +11,13 @@ namespace BMRCaloriesAndMeals.Controllers
     {
         private readonly IBMRServices _bmrServices;
         private readonly ICalorieServices _calorieServicers;
+        private readonly IMacroSplit _macroSplit;
 
-        public BMRCalorieController(IBMRServices bmrServices, ICalorieServices calorieServices)
+        public BMRCalorieController(IBMRServices bmrServices, ICalorieServices calorieServices, IMacroSplit macroSplit)
         {
             _bmrServices = bmrServices;
             _calorieServicers = calorieServices;
+            _macroSplit = macroSplit;
         }
 
         /// <summary>
@@ -30,7 +33,7 @@ namespace BMRCaloriesAndMeals.Controllers
         public ActionResult<string> ReturnBMR(BMRModel userBMRModel)
         {
             var bmr = _bmrServices.CalculateBMR(userBMRModel);
-
+            var test = _macroSplit.GetMacroSplits(2500, "gain");
             if (bmr == 0)
             {
                 return Ok("Please enter male/female for gender");
@@ -45,10 +48,17 @@ namespace BMRCaloriesAndMeals.Controllers
         /// returns calories needed daily based on weight goal (gain, lose, maintain)
         /// </summary>
         [HttpPost("/CaloriesNeededDaily")]
-        public ActionResult<double> returnCaloriesNeededDaily([FromBody]ActiviyLevelModel activityLevel, double BMR)
+        public ActionResult<CaloriesNeededAndMacroSplits> returnCaloriesNeededDaily([FromBody]ActiviyLevelModel activityLevel, double BMR)
         {
+            CaloriesNeededAndMacroSplits macrosNeededDaily = new CaloriesNeededAndMacroSplits();
             var caloriesNeededDaily = _calorieServicers.CalculateCaloriesNeededDaily(activityLevel, BMR);
-            return Ok(caloriesNeededDaily);
+            var macroSplit = _macroSplit.GetMacroSplits(caloriesNeededDaily, activityLevel.WeightGoal);
+            macrosNeededDaily.TotalCalories = caloriesNeededDaily;
+            macrosNeededDaily.MacroSplit=macroSplit;
+            macrosNeededDaily.GramsOfProtein = macroSplit.protein / 4;
+            macrosNeededDaily.GramsOfFat = macroSplit.fat / 9;
+            macrosNeededDaily.GramsOfCarbs = macroSplit.carbs / 4;
+            return Ok(macrosNeededDaily);
         }
     }
 }
